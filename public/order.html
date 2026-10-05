@@ -1,0 +1,113 @@
+<!doctype html>
+<html lang="uz">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f46b2f">
+  <meta name="description" content="Lazzat — mazali fast-food va qulay yetkazib berish.">
+  <link rel="manifest" href="/manifest.webmanifest">
+  <link rel="icon" href="/assets/icons/favicon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="/assets/icons/icon-192.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=Manrope:wght@500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer">
+  <link rel="stylesheet" href="/styles.css">
+  <title>Buyurtma — Lazzat</title>
+  <style>
+    .order-page{padding:34px 0 110px}
+    .order-hero-card{position:relative;overflow:hidden;display:grid;grid-template-columns:minmax(0,1fr) 300px;gap:26px;align-items:stretch;background:linear-gradient(135deg,#2c2119 0%,#1e1712 100%);color:#fff;border-radius:34px;padding:36px;box-shadow:0 30px 90px rgba(76,46,20,.18);margin-bottom:28px}
+    .order-hero-card:before{content:"";position:absolute;width:360px;height:360px;border-radius:50%;right:-120px;top:-170px;background:rgba(255,186,97,.16);filter:blur(10px)}
+    .order-hero-copy{position:relative;z-index:1}
+    .order-hero-copy .eyebrow{color:#ffc574}
+    .order-hero-copy h1{font:800 clamp(34px,5vw,64px)/.98 Manrope,sans-serif;letter-spacing:-.055em;margin:12px 0 12px}
+    .order-hero-copy p{margin:0;max-width:680px;color:#d8c9bb;line-height:1.65}
+    .order-hero-art{position:relative;min-height:220px;display:grid;place-items:center;z-index:1}
+    .order-hero-art:before{content:"";position:absolute;width:190px;height:190px;border-radius:50%;background:radial-gradient(circle,rgba(255,177,87,.42),transparent 68%)}
+    .order-hero-art img{position:relative;width:260px;height:210px;object-fit:cover;border-radius:28px;transform:rotate(4deg);box-shadow:0 28px 55px rgba(0,0,0,.35);border:1px solid rgba(255,255,255,.12)}
+    .order-tools{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:18px;align-items:center;margin:0 0 22px}
+    .search-wrap{min-width:0}
+    .search-wrap .input-icon{width:100%}
+    .search-wrap input{width:100%;border:1px solid var(--line);background:var(--paper);border-radius:17px;padding:15px 18px 15px 44px;outline:none;box-shadow:0 8px 26px rgba(74,45,21,.05)}
+    .order-page .input-icon{position:relative}
+    .order-page .input-icon>i{position:absolute;left:16px;top:50%;transform:translateY(-50%);z-index:1;color:#a09284}
+    .category-scroll{display:flex;gap:10px;overflow:auto;padding:2px 2px 7px;scrollbar-width:thin}
+    .cat-btn{white-space:nowrap;background:var(--paper);color:#655c53;border:1px solid var(--line);padding:11px 14px;border-radius:999px;font-weight:800}
+    .cat-btn.active{background:#2a211b;color:#fff;border-color:#2a211b;box-shadow:0 10px 24px rgba(42,33,27,.16)}
+    .order-layout{display:grid;grid-template-columns:minmax(0,1fr) 390px;gap:24px;align-items:start}
+    .menu-panel,.cart-panel,.account-auth-card{background:rgba(255,253,249,.9);border:1px solid var(--line)}
+    .menu-panel{padding:24px}
+    .cart-panel{padding:24px;position:sticky;top:100px}
+    .cart-heading,.history-head{display:flex;align-items:center;justify-content:space-between;gap:16px;margin-bottom:16px}
+    .cart-heading h2,.menu-panel h2{font:800 28px/1.05 Manrope,sans-serif;letter-spacing:-.04em;margin:4px 0}
+    .cart-icon{width:46px;height:46px;border-radius:15px;display:grid;place-items:center;background:var(--soft);color:var(--accent)}
+    .cart-list{display:grid;gap:12px;max-height:390px;overflow:auto;padding-right:3px}
+    .cart-row{display:grid;grid-template-columns:58px minmax(0,1fr) auto;gap:11px;align-items:center;padding:10px;border:1px solid var(--line);background:#fff;border-radius:17px}
+    .cart-row>img{width:58px;height:58px;object-fit:cover;border-radius:13px}
+    .cart-main{display:grid;gap:4px;min-width:0}.cart-main strong{font-size:14px}.cart-main>span{font-size:12px;color:var(--muted)}
+    .qty{display:flex;align-items:center;gap:8px;margin-top:5px}.qty button{width:26px;height:26px;border:1px solid var(--line);border-radius:9px;background:#fff;color:var(--ink)}.qty b{min-width:16px;text-align:center;font-size:12px}
+    .cart-line{white-space:nowrap;font-size:13px}.cart-summary{border-top:1px dashed var(--line);margin-top:16px;padding-top:16px;display:grid;gap:10px}.summary-row{display:flex;justify-content:space-between;gap:20px;color:#766c62;font-size:13px}.summary-row.total{font-size:17px;color:var(--ink);font-weight:900;padding-top:5px}
+    .checkout{display:grid;gap:12px;margin-top:18px}.checkout h3{margin:0;font:800 20px Manrope,sans-serif}.field{display:grid;gap:7px}.field label{font-size:12px;font-weight:800;color:#6b6258}.field input,.field textarea,.field select{width:100%;border:1px solid var(--line);background:#fff;border-radius:14px;padding:13px 14px;outline:none}.field textarea{min-height:92px;resize:vertical}.field input:focus,.field textarea:focus,.field select:focus{border-color:rgba(244,107,47,.55);box-shadow:0 0 0 4px rgba(244,107,47,.09)}
+    .notice{min-height:0;font-size:12px;color:#b14d34}.notice.success{color:#2f7d59}.success-box{display:none;margin-top:15px;padding:16px;border-radius:18px;background:#eff8f1;border:1px solid #cce7d4}.success-box.show{display:block}.success-icon{width:42px;height:42px;border-radius:14px;display:grid;place-items:center;background:#dff2e4;color:#2f7d59;margin-bottom:8px}
+    .empty{padding:34px 16px;text-align:center;color:var(--muted)}.empty-icon{width:54px;height:54px;margin:0 auto 10px;border-radius:18px;background:var(--soft);display:grid;place-items:center;color:var(--accent);font-size:21px}.empty h3{margin:9px 0 5px;color:var(--ink);font:800 20px Manrope,sans-serif}.empty p{margin:0 0 14px;line-height:1.5}.wide{grid-column:1/-1}
+    .install-hint{position:fixed;right:20px;bottom:20px;max-width:350px;background:#fffdf9;border:1px solid var(--line);border-radius:22px;padding:16px;display:flex;gap:12px;align-items:flex-start;box-shadow:0 24px 70px rgba(55,35,18,.2);z-index:150}.install-hint .empty-icon{width:42px;height:42px;flex:0 0 auto;margin:0}.install-hint strong{display:block;font-size:14px;color:var(--ink)}.install-hint p{margin:4px 0 10px;color:var(--muted);font-size:12px;line-height:1.45}.install-hint button{border:0;background:transparent;color:#9a8d80;position:absolute;right:10px;top:9px}
+    .mini-cart{display:none;position:fixed;left:12px;right:12px;bottom:12px;z-index:140;padding:12px 14px;background:#241a14;color:#fff;border-radius:18px;box-shadow:0 20px 45px rgba(34,22,15,.28);align-items:center;justify-content:space-between;gap:12px}.mini-left{position:static}.mini-right{position:static}.mini-cart .mini-btn{border:0;background:#ffbf67;color:#241a14;font-weight:900;border-radius:12px;padding:10px 13px}
+    @media(max-width:1050px){.order-layout{grid-template-columns:1fr}.cart-panel{position:static}.order-hero-card{grid-template-columns:1fr 250px}.order-hero-art img{width:220px}}
+    @media(max-width:760px){.order-page{padding:22px 0 92px}.order-hero-card{grid-template-columns:1fr;padding:25px;border-radius:26px}.order-hero-art{min-height:170px}.order-hero-art img{width:230px;height:165px}.order-tools{grid-template-columns:1fr}.menu-panel,.cart-panel{padding:18px}.products.order-products{grid-template-columns:repeat(2,minmax(0,1fr))}}
+    @media(max-width:560px){.order-hero-copy h1{font-size:38px}.products.order-products{grid-template-columns:1fr}.install-hint{left:12px;right:12px;bottom:78px;max-width:none}.category-scroll{margin-right:-4px}.cart-panel{padding-bottom:28px}}
+  </style>
+</head>
+<body>
+  <div class="top-strip"><div class="container top-strip-inner"><span><i class="fa-solid fa-clock"></i> Har kuni 10:00–23:30</span><span class="top-strip-hide"><i class="fa-solid fa-motorcycle"></i> 15–30 daqiqada yetkazib beramiz</span><span><i class="fa-solid fa-phone"></i> +998 90 123 45 67</span></div></div>
+  <header class="topbar"><div class="container nav">
+    <a class="brand" href="/"><span class="brandmark"><i class="fa-solid fa-burger"></i></span><span><b>LAZZAT</b><small>FAST FOOD • RESTORAN</small></span></a>
+    <nav class="navlinks"><a href="/#menu">Menyu</a><a href="/#special">Aksiya</a><a href="/#about">Biz haqimizda</a><a href="/#reviews">Fikrlar</a><a href="/#contact">Aloqa</a></nav>
+    <div class="nav-actions"><a class="icon-link" href="/account.html" aria-label="Akkaunt"><i class="fa-regular fa-user"></i></a><a class="btn btn-secondary btn-small" href="/" aria-label="Bosh sahifa"><i class="fa-solid fa-house"></i><span class="top-strip-hide">Bosh sahifa</span></a></div>
+  </div></header>
+
+  <main class="order-page">
+    <div class="container">
+      <section class="order-hero-card">
+        <div class="order-hero-copy"><span class="eyebrow"><i class="fa-solid fa-bowl-food"></i> LAZZAT MENYUSI</span><h1>Och qoldingizmi?<br><span style="color:#ffb764">Buyurtma bering.</span></h1><p>Yangi tayyorlangan burger, lavash, pizza va qarsildoq gazaklarni bir joyda tanlang. Sevimli taomingizni savatchaga qo‘shing va manzilingizni qoldiring.</p><div class="hero-actions"><a class="btn btn-light" href="#products"><i class="fa-solid fa-utensils"></i> Menyuni ko‘rish</a><a class="pill" style="background:rgba(255,255,255,.08);border-color:rgba(255,255,255,.16);color:#fff" href="https://t.me/UzbekFoodNewBot" target="_blank" rel="noreferrer"><i class="fa-brands fa-telegram"></i> Telegram</a></div></div>
+        <div class="order-hero-art"><img src="https://images.unsplash.com/photo-1550547660-d9450f859349?auto=format&fit=crop&fm=jpg&q=88&w=900" alt="Lazzat burger" onerror="this.onerror=null;this.src='/assets/burger.svg'"></div>
+      </section>
+
+      <section class="order-tools"><div class="search-wrap"><div class="input-icon"><i class="fa-solid fa-magnifying-glass"></i><input id="search" type="search" placeholder="Taom yoki kategoriya qidiring..." autocomplete="off"></div></div><span class="pill" id="resultCount">Menyu yuklanmoqda...</span></section>
+
+      <div class="category-scroll" id="categories" aria-label="Kategoriyalar"></div>
+
+      <section class="order-layout" style="margin-top:22px">
+        <div class="menu-panel" id="products-area">
+          <div class="section-head compact"><div><span class="section-kicker">TANLOV SIZNIKI</span><h2>Bugungi menyu</h2><p>Bir bosishda savatchaga qo‘shing.</p></div></div>
+          <div class="products order-products" id="products"></div>
+        </div>
+
+        <aside class="cart-panel">
+          <div class="cart-heading"><div><span class="section-kicker">SAVATCHA</span><h2>Buyurtmangiz</h2></div><div class="cart-icon"><i class="fa-solid fa-basket-shopping"></i></div></div>
+          <div class="cart-list" id="cart"></div>
+          <div class="empty" id="emptyCart"><div class="empty-icon"><i class="fa-solid fa-basket-shopping"></i></div><h3>Savatcha hozircha bo‘sh</h3><p>Yoqtirgan taomingizdagi “+” tugmasini bosing.</p></div>
+          <div id="checkout" class="checkout">
+            <h3>Yetkazib berish</h3>
+            <div class="form-row"><div class="field"><label for="customerName">Ism</label><input id="customerName" autocomplete="name" placeholder="Ismingiz"></div><div class="field"><label for="customerPhone">Telefon</label><input id="customerPhone" autocomplete="tel" placeholder="+998 90 123 45 67"></div></div>
+            <div class="field"><label for="address">Manzil</label><textarea id="address" placeholder="Ko‘cha, uy, xonadon va mo‘ljal"></textarea></div>
+            <div class="field"><label for="payment">To‘lov usuli</label><select id="payment"><option value="cash">Naqd pul</option><option value="card">Terminal / karta</option></select></div>
+            <div class="cart-summary"><div class="summary-row"><span>Mahsulotlar</span><strong id="subTotal">0 so‘m</strong></div><div class="summary-row"><span>Yetkazib berish</span><strong>Bepul</strong></div><div class="summary-row total"><span>Jami</span><strong id="cartTotal">0 so‘m</strong></div></div>
+            <div class="notice" id="orderNotice"></div>
+            <button class="btn btn-primary full" id="placeOrder" type="button"><i class="fa-solid fa-paper-plane"></i> Buyurtmani yuborish</button>
+            <div class="success-box" id="successBox"><div class="success-icon"><i class="fa-solid fa-check"></i></div><strong>Buyurtma qabul qilindi!</strong><p id="successText"></p><button class="btn btn-secondary btn-small" id="continueShopping" type="button">Yana xarid qilish</button></div>
+          </div>
+        </aside>
+      </section>
+
+      <section class="section" id="auth" style="padding-bottom:30px"><div class="container" style="width:100%"><div class="panel" style="padding:24px" id="authPanel"><div class="auth-box"></div></div></div></section>
+    </div>
+  </main>
+
+  <div class="mini-cart" id="miniCart"><div><strong><i class="fa-solid fa-bag-shopping"></i> <span id="miniCount">0</span> ta mahsulot</strong><div style="font-size:11px;color:#d7c9bc;margin-top:2px" id="miniTotal">0 so‘m</div></div><button class="mini-btn" id="openCart" type="button">Savatchaga o‘tish</button></div>
+  <div class="install-hint" id="installHint" hidden><div class="empty-icon"><i class="fa-solid fa-mobile-screen-button"></i></div><div style="padding-right:18px"><strong>Lazzatni ilovaga o‘rnating</strong><p>Keyingi safar saytni tezroq ochish uchun bosh ekranga qo‘shing.</p><button class="btn btn-primary btn-small" id="installHintBtn" type="button"><i class="fa-solid fa-download"></i> Ilovani o‘rnatish</button></div><button id="installHintClose" aria-label="Yopish"><i class="fa-solid fa-xmark"></i></button></div>
+  <div id="toast" class="toast" aria-live="polite"></div>
+  <div class="install-help" id="installHelp" hidden><div class="install-help-card"><button class="hint-close" id="installHelpClose" aria-label="Yopish"><i class="fa-solid fa-xmark"></i></button><span class="section-kicker">LAZZAT ILOVASI</span><h3>Ilovani o‘rnatish</h3><p id="installHelpText">Ilovani o‘rnatish uchun brauzer menyusidan tegishli “Ilovani o‘rnatish” bandini tanlang.</p><a class="btn btn-primary" href="/" style="margin-top:16px"><i class="fa-solid fa-house"></i> Lazzatga qaytish</a></div></div>
+<script src="https://telegram.org/js/telegram-web-app.js"></script>
+  <script src="/app.js"></script>
+</body>
+</html>

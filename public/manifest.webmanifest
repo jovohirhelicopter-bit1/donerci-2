@@ -1,0 +1,24 @@
+{
+  "name": "Lazzat — Fast Food Restoran",
+  "short_name": "Lazzat",
+  "description": "Lazzat — o‘zbekcha fast-food restorani. Menyu, akkaunt, buyurtma va Telegram Mini App.",
+  "lang": "uz",
+  "dir": "ltr",
+  "start_url": "/?source=pwa",
+  "scope": "/",
+  "display": "standalone",
+  "display_override": ["standalone", "minimal-ui"],
+  "prefer_related_applications": false,
+  "orientation": "any",
+  "background_color": "#fffaf3",
+  "theme_color": "#f26a2e",
+  "icons": [
+    {"src": "/assets/icons/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any maskable"},
+    {"src": "/assets/icons/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any maskable"}
+  ],
+  "categories": ["food", "shopping"],
+  "shortcuts": [
+    {"name":"Buyurtma berish","short_name":"Buyurtma","url":"/order.html","icons":[{"src":"/assets/icons/icon-192.png","sizes":"192x192","type":"image/png"}]},
+    {"name":"Akkaunt","short_name":"Akkaunt","url":"/account.html","icons":[{"src":"/assets/icons/icon-192.png","sizes":"192x192","type":"image/png"}]}
+  ]
+}

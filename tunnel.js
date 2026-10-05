@@ -1,0 +1,10 @@
+const { spawn } = require('child_process');
+const fs = require('fs');
+const path = require('path');
+const portFile = path.join(__dirname, '.lazzat-port');
+const port = fs.existsSync(portFile) ? Number(fs.readFileSync(portFile, 'utf8').trim()) || 5050 : Number(process.env.PORT || 5050);
+console.log(`🌐 Lazzat public tunnel: localhost:${port}`);
+const cmd = process.platform === 'win32' ? 'npx.cmd' : 'npx';
+const child = spawn(cmd, ['--yes','localtunnel','--port', String(port)], {stdio:'inherit'});
+child.on('exit', code => process.exit(code ?? 0));
+child.on('error', err => { console.error('Tunnel ishga tushmadi:', err.message); process.exit(1); });

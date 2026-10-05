@@ -1,0 +1,13 @@
+{
+  "name": "lazzat-fastfood",
+  "version": "2.0.0",
+  "private": true,
+  "description": "Lazzat — o‘zbekcha fast-food restoran, backend, akkaunt, buyurtmalar va Telegram Mini App.",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node --watch server.js",
+    "tunnel": "node tunnel.js"
+  },
+  "engines": { "node": ">=18" }
+}
